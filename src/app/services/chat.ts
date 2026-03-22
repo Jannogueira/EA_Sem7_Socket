@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 export interface Mensaje {
   usuario: any;
-  organizacion: string; 
+  organizacion: string;
   contenido: string;
   _id?: string;
   leido?: boolean;
@@ -20,7 +20,12 @@ export class Chat {
   private readonly SERVER_URL = 'http://localhost:1337';
 
   constructor(private http: HttpClient) {
-    this.socket = io(this.SERVER_URL);
+
+    const usuario = sessionStorage.getItem('chat_user_name');
+
+    this.socket = io(this.SERVER_URL, {
+      query: { username: usuario }
+    });
 
     this.socket.on('connect', () => {
       console.log('✅ Socket conectado:', this.socket.id);
@@ -46,11 +51,11 @@ export class Chat {
   }
 
   sendTyping(usuario: string, usuarioName: string): void {
-  this.socket.emit('typing', { usuario: usuario, usuarioName: usuarioName });
+    this.socket.emit('typing', { usuario: usuario, usuarioName: usuarioName });
   }
 
   stopTyping(usuario: string, usuarioName: string): void {
-  this.socket.emit('stop-typing', { usuario: usuario, usuarioName: usuarioName });
+    this.socket.emit('stop-typing', { usuario: usuario, usuarioName: usuarioName });
   }
   onUserTyping(): Observable<any> {
     return new Observable((observer) => {
@@ -80,5 +85,13 @@ export class Chat {
     if (this.socket) {
       this.socket.disconnect();
     }
+  }
+
+  getOnlineUsers(): Observable<any[]> {
+    return new Observable((observer) => {
+      this.socket.on('online-users', (data) => {
+        observer.next(data);
+      });
+    });
   }
 }
