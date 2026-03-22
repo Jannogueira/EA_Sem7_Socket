@@ -1,3 +1,6 @@
+Ejercicio Seminario WebSockets - Jan Nogueira
+Uso de IA solo para el css.
+
 # ChatApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
