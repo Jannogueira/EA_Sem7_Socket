@@ -1,5 +1,10 @@
-Ejercicio Seminario WebSockets - Jan Nogueira
-Uso de IA Gemini 3 Flash solo para el css de la lista de usuarios conectados.
+# Ejercicio Seminario JWT - Jan Nogueira
+
+**Estudiante:** Jan Nogueira  
+**Nota:** Ejercicio desarrollado íntegramente sin uso de IA.
+
+---
+
 
 # ChatApp
 
